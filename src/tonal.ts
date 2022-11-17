@@ -28,12 +28,17 @@ function cleanChord(chord: Array<String>) {
             return cleanUpNote(String(note));
         }
     })
-    console.log('cleanedChordarray = ' + cleanedChord);
+    // console.log('cleanedChordarray = ' + cleanedChord);
     return cleanedChord;
 }
 
 export function getChord(chord: Array<String>){
-    return detect(cleanChord(chord));
+    const namedChord = detect(cleanChord(chord));
+    if (namedChord.length === 0){
+        return 'Try again!';
+    } else {
+        return namedChord;
+    }
 } 
 
 
