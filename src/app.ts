@@ -5,7 +5,7 @@ const keyboard = document.querySelector('#piano-keyboard');
 const whiteKeys = ['c3','d3','e3','f3','g3','a4','b4','c4','d4','e4','f4','g4','a5','b5'];
 const blackKeys = ['db3','eb3','gb3','ab4','bb4','db4','eb4','gb4','ab5','bb5'];
 const blackKeyDots = ['db3_2','eb3_2','gb3_2','ab4_2','bb4_2','db4_2','eb4_2','gb4_2','ab5_2','bb5_2'];
-const keysPressed: Array<string> = []; // Array to keep track of the key that is currently being pressed down. 
+const keysPressed: Array<string> = []; // Array to keep track of the keys that are currently being pressed down. 
 
 // Is key already pressed?
 function isKeyPressed(key: String){ 
@@ -17,7 +17,7 @@ function isKeyPressed(key: String){
 }
 
 // Is key black or white?
-function isKeyBlack(key: String){
+export function isKeyBlack(key: String){
     if(blackKeys.includes(`${key}`)) {
         return true;
     }
@@ -42,15 +42,6 @@ function keyOrNot(e: any) {
     return false;
 }
 
-function cleanChord(e: any) {
-    const cleanedChord = keysPressed.map((note) => {
-        var cleanNote = `${note.toUpperCase().replace(/[0-9]/g, '')}`;
-        return cleanNote;
-    })
-    // console.log(cleanedChord);
-    console.log(`Chord: ${getChord(cleanedChord)}`);
-}
-
 // Remove extension from key name
 function cleanUpKey(e: any) {
     if (keyOrNot(e)) {
@@ -60,7 +51,6 @@ function cleanUpKey(e: any) {
         const cleanedKey = keyDot.replace('_2', '');
         return cleanedKey;
     }
-
 } 
 
 //Handle the highlight effect on keyboard
@@ -86,12 +76,12 @@ function keyClicked(e: any) {
             const currentKeyIndex = keysPressed.indexOf(realKey);
             keysPressed.splice(currentKeyIndex,1);
             setColor(e);
-            cleanChord(e);
+            console.log(`Chord: ${getChord(keysPressed)}`);
         } else {
             //Key not pressed
             keysPressed.push(realKey);
             setColor(e);
-            cleanChord(e);
+            console.log(`Chord: ${getChord(keysPressed)}`);
         }
         // console.log(`Chord: ${getChord()}`);
     } else {
